@@ -13,6 +13,7 @@ To get it up and running you'll need to follow these steps in order, future iter
 7. In a new terminal tab run ```python run_app_web.py``` to start the web app.
 8. Navigate to http://127.0.0.1:9001/ in a browser.
 
-Maybe a month after I originally presented this the fine ML researchers at google came out with this [fantastic article](https://research.googleblog.com/2017/02/using-machine-learning-to-predict.html).  They really blew me out of the water with that one.  I'm very excited that it's a problem that is being worked on, and only a little bit jealous of the MUCH stronger ground truth the google team has to work with.  Looking for parking isn't only a hassle, it causes tons of congestion and unnecessary emissions,  and I really hope that it's something more people will consider working on.  
+Maybe a month after I originally presented this the fine ML researchers at google came out with this [fantastic article](https://research.googleblog.com/2017/02/using-machine-learning-to-predict.html).  They really blew me out of the water with that one.  I'm very excited that it's a problem that is being worked on, and only a little bit jealous of the MUCH stronger ground truth the google team has to work with.  Looking for parking isn't only a hassle, it causes tons of congestion and unnecessary emissions,  and I really hope that it's something more people will consider working on. 
+ 
 
 
