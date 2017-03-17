@@ -1,0 +1,399 @@
+
+{% extends 'layout.html' %}
+{% block header %}
+<style type="text/css">
+
+/*div.iframe{
+  box-shadow: 12px 12px 25px #acb6c1
+}*/
+
+
+</style>
+{% endblock header %}
+{% block content %}
+<div style="width: 100%; overflow: hidden; padding-top: 20px">
+    <div style="width: 600px; float: left;"> 
+
+  <h2 style="color:#a9a39a; text-shadow: -1px 0 2px #293647, 1px 0 2px #293647, 1px 0 2px #293647, 0 -1px 2px #293647;"><strong>Help me park!</strong></h2>
+  <p style="color:#a9a39a; text-shadow: -1px 0 1px #293647, 1px 0 1px #293647, 1px 0 1px #293647, 0 -1px 1px #293647;">All you need is a street address within <strong>San Francisco</strong>.<br>No zip, no city, no state.<br>I'll direct you to the most likely blocks nearby to find a parking space.</p>
+   </div>
+      
+  <!-- <div id="right-panel" class="row"> -->
+
+      <div style="margin-left: 620px;"> 
+    <form method="post" > 
+      <b style="color:#a9a39a; text-shadow: -1px 0 1px #293647, 1px 0 1px #293647, 1px 0 1px #293647, 0 -1px 1px #293647;;">Origin:</b>
+      <br>
+      <input style="background-color: rgba(197, 193, 189, 0.25); border:#000000;" type="text" name="origin" value="{{ origin }}"> 
+      <br>
+       <b style="color:#a9a39a; text-shadow: -1px 0 1px #293647, 1px 0 1px #293647, 1px 0 1px #293647, 0 -1px 1px #293647;">Destination:</b>  
+       <br>
+      <input style="background-color: rgba(197, 193, 189, 0.25); border:#000000;" type="text" name="address" value="{{ address }}">
+      <button style="background-color: #5c96bc; border: #5c96bc;" type="submit" id="submit" class="button-primary">Go!</button>
+      <button style="background-color: #80cbc3; border: #80cbc3;"  id="record" class="button-primary">Save!</button>
+    </form>
+     </div>
+</div>
+  <!-- </div> -->
+  <div id="map"></div>
+  <!-- <div id="directions-panel"></div> -->
+  <script>
+    function initMap() {
+      console.log('initmap')
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var end_lc = {{dest}};
+      var endc = new google.maps.LatLng(end_lc[0],end_lc[1]);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        backgroundColor: "#37475e",
+        zoom: 15,
+        center: endc,
+        styles: [
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#444444"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.locality",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.neighborhood",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.land_parcel",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#f2f2f2"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.attraction",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.government",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"3"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.place_of_worship",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+              "gamma":"4.1"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#5c96bc"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+]
+
+      });
+      directionsDisplay.setMap(map);
+
+
+      var waypts_array = {{waypts | safe}};
+
+      var pts = [];
+      for (var i = 0; i < waypts_array.length; i++) {
+              pts.push(new google.maps.LatLng(waypts_array[i][0], waypts_array[i][1]));
+      };
+      var start_loc = {{org}};
+      var start = new google.maps.LatLng(start_loc[0],start_loc[1]);
+      console.log(start)
+      var end_loc = {{dest}};
+      var end = new google.maps.LatLng(end_loc[0],end_loc[1]);
+      var pts_test = [{
+        location: pts[0],
+        stopover:false
+      }, 
+      {
+        location: pts[1],
+        stopover:false
+      },
+      {
+        location: pts[2],
+        stopover:false
+      },
+      {
+        location: pts[3],
+        stopover:false
+      }];
+        directionsService.route({
+          origin: start,
+          destination: end,
+          waypoints: pts_test,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function displayDirectionsPanel(response) {
+          directionsDisplay.setDirections(response); //does stuff with gmaps api response from python
+
+          console.log(response);
+          var route = response.routes[0];
+          var summaryPanel = document.getElementById('directions-panel');
+          summaryPanel.innerHTML = '';
+          // For each route, display summary information.
+          for (var i = 0; i < route.legs.length; i++) {
+            var routeSegment = i + 1;
+            summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                '</b><br>';
+            summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+            summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+            summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+           }
+
+      }); //rm paren
+
+    }
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key={{YOUR API KEY HERE}}&callback=initMap">
+  </script>
+  </body>
+</html>
+{% endblock content %}

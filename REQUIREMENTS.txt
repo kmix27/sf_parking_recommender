@@ -1,0 +1,9 @@
+python=3.5
+pandas=0.18
+numpy=1.11.2
+s2sphere=0.2.4
+requests=2.12.4
+geopy=1.11.0
+shapely=1.5.17
+sklearn=0.18
+flask=0.10.1
