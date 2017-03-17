@@ -1,0 +1,13 @@
+#unzipped data
+cleaned/
+
+#compiled code
+__pycache__/
+*.py[cod]
+
+#local files
+local/
+
+#key
+key.txt
+
